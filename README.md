@@ -6,7 +6,10 @@ ruby apps docs
 apps dashboard
 - https://fly.io/dashboard
 
-## release steps
+## release steps (with fly)
+
+requires gem in bundle
+- `rackup`
 
 install CLI
 - `brew install flyctl`
@@ -16,6 +19,9 @@ auth CLI
 
 prepare for deployment
 - `flyctl launch`
+- will generate files
+  - `Dockerfile`
+  - `fly.toml`
 
 deploy
 - `fly deploy`
