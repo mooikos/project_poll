@@ -10,4 +10,5 @@ gem "rubocop"
 
 # application framework + server
 gem "sinatra"
+gem "rackup"
 gem "webrick"

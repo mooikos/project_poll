@@ -1,4 +1,4 @@
-ARG RUBY_VERSION=3.2.1
+ARG RUBY_VERSION=3.1.3
 FROM ruby:$RUBY_VERSION-slim as base
 
 # Rack app lives here
