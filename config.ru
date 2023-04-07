@@ -1,3 +1,3 @@
-require './test_heroku'
+require File.expand_path('test_heroku', File.dirname(__FILE__))
 
-run Sinatra::Application
+run TestHeroku
