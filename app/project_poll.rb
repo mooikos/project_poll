@@ -2,7 +2,7 @@
 
 require 'sinatra/base'
 
-class TestFly < Sinatra::Base
+class ProjectPoll < Sinatra::Base
   get "*" do
     [404, "Sorry page not found!!"]
   end
