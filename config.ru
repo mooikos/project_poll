@@ -1,3 +1,3 @@
-require File.expand_path('test_fly', File.dirname(__FILE__))
+require File.expand_path('project_poll', File.dirname(__FILE__))
 
-run TestFly
+run ProjectPoll

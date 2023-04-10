@@ -1,12 +1,14 @@
-# test hosting solution for ruby sinatra app
+# project poll
+
+project for open politic / voting polling
+
+## hosting docs
 
 ruby apps docs
 - https://fly.io/docs/languages-and-frameworks/ruby/
 
 apps dashboard
 - https://fly.io/dashboard
-
-## release steps (with fly)
 
 requires gem in bundle
 - `rackup`
