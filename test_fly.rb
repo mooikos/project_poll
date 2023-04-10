@@ -2,7 +2,7 @@
 
 require 'sinatra/base'
 
-class TestHeroku < Sinatra::Base
+class TestFly < Sinatra::Base
   get "*" do
     [404, "Sorry page not found!!"]
   end

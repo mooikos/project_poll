@@ -1,3 +1,3 @@
-require File.expand_path('test_heroku', File.dirname(__FILE__))
+require File.expand_path('test_fly', File.dirname(__FILE__))
 
-run TestHeroku
+run TestFly
