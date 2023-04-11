@@ -1,6 +1,6 @@
-# fly.toml file generated for mooikos-test-fly on 2023-04-07T14:12:54+02:00
+# fly.toml file generated for mooikos-poll on 2023-04-10T16:07:15+02:00
 
-app = "mooikos-test-fly"
+app = "mooikos-poll"
 kill_signal = "SIGINT"
 kill_timeout = 5
 primary_region = "ams"
