@@ -1,10 +1,13 @@
 ```
 docker run --detach \
-  --name mysql_project_poll \
-  --env MYSQL_ROOT_PASSWORD=root_password \
-  --env MYSQL_USER=project_poll_user \
-  --env MYSQL_PASSWORD=project_poll_password \
-  --env MYSQL_DATABASE=project_poll_development \
-  --publish 3306:3306 \
-  mysql
+  --name postgres_project_poll \
+  --env POSTGRES_PASSWORD=postgres \
+  --env POSTGRES_DB=project_poll_database \
+  --publish 5432:5432 \
+  postgres
+
+psql --username postgres
+create user project_poll_user;
+alter user project_poll_user with encrypted password 'project_poll_password';
+grant all privileges on database project_poll_database to project_poll_user;
 ```

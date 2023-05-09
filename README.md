@@ -1,6 +1,10 @@
 # project poll
 
-project for open politic / voting polling
+project for polling for events
+
+## running locally
+
+- `bundle exec ruby app/project_poll.rb`
 
 ## hosting docs
 

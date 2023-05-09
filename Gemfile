@@ -20,6 +20,6 @@ gem 'webrick', '~> 1.8'
 # tasks runner
 gem 'rake', '~> 13.0'
 
-# database framework + connection
-gem 'activerecord', '~> 7.0'
-gem 'mysql2', '~> 0.5.5'
+# database framework + connector
+gem 'sequel', '~> 5.68'
+gem 'pg', '~> 1.5'
