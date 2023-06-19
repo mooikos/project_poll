@@ -17,9 +17,9 @@ gem 'rackup', '~> 1.0'
 gem 'sinatra', '~> 3.0'
 gem 'webrick', '~> 1.8'
 
-# tasks runner
-gem 'rake', '~> 13.0'
-
 # database framework + connector
 gem 'sequel', '~> 5.68'
 gem 'pg', '~> 1.5'
+
+# rest client
+gem 'rest-client', '~> 2.1'

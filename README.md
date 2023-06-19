@@ -4,7 +4,12 @@ project for polling for events
 
 ## running locally
 
+run server
 - `bundle exec ruby app/project_poll.rb`
+
+database framework
+- https://github.com/jeremyevans/sequel (/ https://devhints.io/sequel)
+- security: https://github.com/jeremyevans/sequel/blob/master/doc/security.rdoc
 
 ## hosting docs
 
