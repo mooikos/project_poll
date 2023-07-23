@@ -15,39 +15,18 @@ require 'sequel'
 # rest client
 require 'rest-client'
 
-# connection
-DB = Sequel.connect(
-  adapter: :postgres,
-  user: ENV.fetch('DATABASE_USER'),
-  password: ENV.fetch('DATABASE_PASSWORD'),
-  host: ENV.fetch('DATABASE_HOST'),
-  port: ENV.fetch('DATABASE_PORT', 5432),
-  database: ENV.fetch('DATABASE_DATABASE'),
-  search_path: ENV.fetch('DATABASE_SCHEMA')
-)
-
-# migrations
-begin
-  DB.create_table :users do
-    primary_key :id
-    String :name
-  end
-rescue Sequel::DatabaseError => _e
-  # already created
-end
-
-begin
-  DB.create_table :events do
-    primary_key :id
-    String :name
-  end
-rescue Sequel::DatabaseError => _e
-  # already created
-end
-
+# connection & migrate (if needed)
+require_relative 'database'
 
 # project poll app
 class ProjectPoll < Sinatra::Base
+  require_relative 'models/user'
+  require_relative 'support/telegram_client'
+  require_relative 'use_cases/base'
+  require_relative 'use_cases/user_subscribe'
+  require_relative 'use_cases/user_unsubscribe'
+
+  # start the background job loop
   require_relative 'background_jobs/base'
 
   get '*' do

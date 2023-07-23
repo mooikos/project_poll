@@ -1,43 +1,42 @@
 # frozen_string_literal: true
 
-binding.pry
-
 Thread.new do
   puts 'Starting Background Threads'
-  # require_relative './notification'
 
-  # general configs
-  telegram_api_domain= 'https://api.telegram.org'
-  api_token = "bot#{ENV['TELEGRAM_API_TOKEN']}"
-  telegram_api_base_url = "#{telegram_api_domain}/#{api_token}"
+  telegram_client = TelegramClient.new
 
-  # get the latest messages
-  # bot_updates_path = '/getUpdates'
-  bot_updates_path = '/getUpdates?offset=-1'
-  test_get_updates_url = "#{telegram_api_base_url}#{bot_updates_path}"
-  response = RestClient.get(test_get_updates_url)
-  updates = JSON.parse response.body
-
-  users_table = DB[:users]
-  updates['result'].each do |update|
-    # save the users if not existing
-    from = update['message']['from']
-    user_id = from['id']
-    matching_users = users_table.where(id: user_id)
-    next if matching_users.count > 0
-
-    user_name = from['first_name'] + from['last_name']
-    users_table.insert(id: user_id, name: user_name)
-  end
-
+  # FIXME: this will start from the latest "unprocessed", it might cause troubles sometimes
+  latest_processed_update_id = 0
   while true
-    sleep 5
-    # Notification.new.perform
+    # fetch all updates
+    updates = telegram_client.get_updates(offset: latest_processed_update_id + 1)
 
-    target_chat = users_table.first[:id]
-    scary_message = 'Hello Massy!!'
-    test_send_message_url = "#{telegram_api_base_url}/sendMessage?chat_id=#{target_chat}&text=#{scary_message}"
-    response = RestClient.get(test_send_message_url)
-    puts JSON.parse response.body
+    updates['result'].each do |update|
+      puts "\nChecking Update:"
+      puts JSON.pretty_generate update
+
+      message = update['message'] || update['edited_message']
+      chat_type = message['chat']['type']
+      text = message['text']
+      # call different classes based on the type of update
+      if chat_type == 'private'
+        # FIXME: potentially call a "parent private chats" class/module
+        if text == '/subscribe'
+          UseCases::UserSubscribe.new.call(message:)
+        elsif text == '/unsubscribe'
+          UseCases::UserUnSubscribe.new.call(message:)
+        else
+          puts "WARNING: unprocessable text:\n#{update}"
+        end
+      else
+        puts "WARNING: unprocessable chat type:\n#{update}"
+      end
+
+      latest_processed_update_id = update['update_id']
+    end
+
+    telegram_client.send_message(chat_id: 876996959, text: "I am waiting ..")
+
+    sleep 5
   end
 end
